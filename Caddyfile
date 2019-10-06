@@ -1,0 +1,6 @@
+localhost:8443
+
+tls self_signed
+#tls load /path/to/cert
+#tls ./cert/localhost.pem ./cert/localhost-key.pem
+
