@@ -1,0 +1,24 @@
+#http://localhost:8080 {
+localhost:8443 {
+
+    reverse_proxy /api/v1/* {
+        to localhost:9001 127.0.0.1:9002 http://127.0.0.1:9003 
+        #lb_policy ip_hash
+	    #lb_policy header X-My-Header
+        lb_policy round_robin
+        header_up Host {http.reverse_proxy.upstream.hostport}
+        header_down -x-powered-by
+        header_down -Server
+    }
+
+    encode gzip
+}
+
+# php -t ../../www/api -S 127.0.0.1:9001
+# http://127.0.0.1:9001
+
+# php -t ../../www/api -S 127.0.0.1:9002
+# http://127.0.0.1:9002
+
+# php -t ../../www/api -S 127.0.0.1:9003
+# http://127.0.0.1:9003
