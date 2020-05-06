@@ -1,17 +1,33 @@
-```
-$ caddy --port 8443
-```
+# Caddy v2
+
+[Caddyfile Directives](https://caddyserver.com/docs/caddyfile/directives)
+
+## Run
 
 ```
-$ curl -Ik https://localhost:8443/
-
-HTTP/2 200
-accept-ranges: bytes
-content-type: text/html; charset=utf-8
-etag: "pyxznji"
-last-modified: Sun, 06 Oct 2019 07:33:19 GMT
-server: Caddy
-content-length: 18
-date: Sun, 06 Oct 2019 07:43:37 GMT
+caddy run
+## or
+caddy run --config ./Caddyfile
+## or
+caddy run --config ./caddy.json
 ```
 
+## Run as Background Service
+
+```
+caddy start
+## and
+caddy stop
+## and
+caddy reload
+## or
+caddy reload --config ./Caddyfile
+```
+
+## Notes
+
+__Convert__ `Caddyfile` to `caddy.json`
+
+```
+caddy adapt --config ./Caddyfile > caddy.json
+```

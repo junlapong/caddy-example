@@ -1,6 +1,39 @@
-localhost:8443
+{
+    http_port   8080
+    https_port  8443
+}
 
-tls self_signed
-#tls load /path/to/cert
-#tls ./cert/localhost.pem ./cert/localhost-key.pem
+:8080 {
+    redir https://{host}:8443{uri} permanent
+}
 
+localhost:8443, 192.168.0.155:8443 {
+    root * ./www
+
+    header {
+        -Server
+
+        # enable HSTS
+	    Strict-Transport-Security max-age=31536000;
+
+        # disable clients from sniffing the media type
+        X-Content-Type-Options nosniff
+        
+        # clickjacking protection
+        X-Frame-Options DENY
+
+        # keep referrer data off of HTTP connections
+        Referrer-Policy no-referrer-when-downgrade
+    }
+
+    encode zstd gzip
+
+    file_server browse
+    #file_server
+    
+    tls internal
+
+    log {
+        format single_field common_log
+    }
+}
