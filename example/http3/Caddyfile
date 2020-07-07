@@ -1,0 +1,30 @@
+{
+    experimental_http3
+}
+
+localhost:8443 {
+    root * ../../www
+
+    header {
+        -Server
+
+        # enable HSTS
+        Strict-Transport-Security max-age=31536000;
+
+        # disable clients from sniffing the media type
+        X-Content-Type-Options nosniff
+
+        # clickjacking protection
+        X-Frame-Options DENY
+
+        # keep referrer data off of HTTP connections
+        Referrer-Policy no-referrer-when-downgrade
+    }
+
+    # tls internal
+    tls cert/localhost.pem cert/localhost-key.pem
+
+    encode zstd gzip
+
+    file_server browse
+}
