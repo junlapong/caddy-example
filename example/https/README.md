@@ -25,7 +25,7 @@ localhost:8443 {
         -Server
 
         # enable HSTS
-	    Strict-Transport-Security max-age=31536000;
+        Strict-Transport-Security max-age=31536000;
 
         # disable clients from sniffing the media type
         X-Content-Type-Options nosniff
