@@ -21,6 +21,7 @@ __Create__ `Caddyfile`
 
 ```
 {
+    http_port	8088
     experimental_http3
 }
 
@@ -61,19 +62,24 @@ caddy run --config ./Caddyfile
 __Check__
 
 ```
-$ curl -Ik http://localhost/    
+$ curl -Ik http://localhost:8088/
 
 HTTP/1.1 308 Permanent Redirect
 Connection: close
 Location: https://localhost:8443/
 Server: Caddy
-Date: Wed, 06 May 2020 08:38:38 GMT
+Date: Tue, 07 Jul 2020 13:49:53 GMT
 
 
 $ curl -Ik --http3 https://localhost:8443/
+curl: option --http3: the installed libcurl version doesn't support this
+curl: try 'curl --help' or 'curl --manual' for more information
 
+
+$ curl -Ik https://localhost:8443/
 HTTP/2 200 
 accept-ranges: bytes
+alt-svc: h3-29=":8443"; ma=2592000
 content-type: text/html; charset=utf-8
 etag: "q9wexae"
 last-modified: Wed, 06 May 2020 07:17:34 GMT
@@ -82,5 +88,4 @@ strict-transport-security: max-age=31536000;
 x-content-type-options: nosniff
 x-frame-options: DENY
 content-length: 14
-date: Wed, 06 May 2020 08:39:00 GMT
 ```
