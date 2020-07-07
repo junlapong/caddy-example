@@ -1,9 +1,9 @@
 {
-    http_port   8080
+    http_port   8088
     https_port  8443
 }
 
-:8080 {
+:8088 {
     redir https://{host}:8443{uri} permanent
 }
 
@@ -14,7 +14,7 @@ localhost:8443, 192.168.0.155:8443 {
         -Server
 
         # enable HSTS
-	    Strict-Transport-Security max-age=31536000;
+        Strict-Transport-Security max-age=31536000;
 
         # disable clients from sniffing the media type
         X-Content-Type-Options nosniff
