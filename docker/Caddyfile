@@ -1,12 +1,17 @@
 {
-	# http_port 8088
+	https_port 8088
 	https_port 8443
 	auto_https disable_redirects
 }
 
-# :8088 {
-# 	redir https://{host}:8443{uri} permanent
-# }
+:8088 {
+	# root * ./site
+	# file_server browse
+	redir https://{host}:8443{uri} permanent
+	header {
+		-Server
+	}
+}
 
 :8443 {
 
